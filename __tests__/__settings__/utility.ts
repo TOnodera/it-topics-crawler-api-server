@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { exec } from 'child_process';
-import { runSeed } from 'prisma/seeders/seeders';
+import { runSeed } from 'orm/seeders/seeders';
 
 export const seedDatabase = async (client: PrismaClient) => {
   if (process.env.NODE_ENV == 'production') {
@@ -27,7 +27,7 @@ export const truncate = async (client: PrismaClient) => {
 
   try {
     await client.$executeRawUnsafe(
-      `TRUNCATE TABLE ${tables} RESTART IDENTITY CASCADE;`,
+      `TRUNCATE TABLE ${tables} RESTART IDENTITY CASCADE;`
     );
   } catch (error) {
     console.log({ error });

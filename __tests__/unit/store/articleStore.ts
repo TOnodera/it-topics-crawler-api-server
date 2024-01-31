@@ -1,7 +1,7 @@
 import { test, describe, expect } from '@jest/globals';
 import { ArticleStore } from '@/store/ArticleStore';
 import { PrismaClient } from '@prisma/client';
-import { resetAndSeedDatabase } from '../../settings/utility';
+import { resetAndSeedDatabase } from '../../__settings__/utility';
 import { SITE } from '@/shared';
 
 const client = new PrismaClient();
@@ -66,7 +66,7 @@ describe('articleStoreのテスト', () => {
       });
     } else {
       throw new Error(
-        '想定外のエラー: このエラーが出た場合はテストコードに問題があります',
+        '想定外のエラー: このエラーが出た場合はテストコードに問題があります'
       );
     }
     const updatedArticle = await store.getArticle(1);

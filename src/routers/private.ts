@@ -8,7 +8,7 @@ import { StatusCodes } from 'http-status-codes';
 
 const client = getPrismaClient();
 export const privateRouter = Router();
-/*
+
 privateRouter.use((req, res, next) => {
   if (req.hostname != privateDomainName) {
     res.status(StatusCodes.FORBIDDEN).json({});
@@ -16,7 +16,6 @@ privateRouter.use((req, res, next) => {
   }
   next();
 });
-*/
 
 privateRouter.post(
   '/articles-writer',

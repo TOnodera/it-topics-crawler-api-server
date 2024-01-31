@@ -1,6 +1,6 @@
 import { test, describe, expect } from '@jest/globals';
 import { PrismaClient } from '@prisma/client';
-import { resetAndSeedDatabase } from '../../settings/utility';
+import { resetAndSeedDatabase } from '../../__settings__/utility';
 import { CrawlerStatsStore } from '@/store/CrawlerStatsStore';
 import { batchHistorySeeder } from 'prisma/seeders/batchHistorySeeder';
 import { SITE } from '@/shared';
@@ -48,7 +48,7 @@ describe('crawlerStatsStoreのテスト', () => {
       await store.createCrawlerStats(fixtures[idx]);
       const result = await store.getCrawlerStats(Number(idx + 1));
       expect(result?.requestsFailedPerMinute).toBe(
-        fixtures[idx].requestsFailedPerMinute,
+        fixtures[idx].requestsFailedPerMinute
       );
     }
   });
