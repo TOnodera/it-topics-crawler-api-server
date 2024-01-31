@@ -40,7 +40,8 @@ interface CrawlerStats {
   batchHistoryId: number;
 }
 
-interface BatchHistory {
+interface UpdateBatchHistory {
+  id: number;
   startAt?: Date;
   endAt?: Date;
   createdAt?: Date;

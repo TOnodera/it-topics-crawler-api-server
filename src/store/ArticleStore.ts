@@ -1,6 +1,6 @@
-import { SITE } from "@/shared";
-import { now } from "@/utils/time";
-import { PrismaClient } from "@prisma/client";
+import { SITE } from '@/shared';
+import { now } from '@/utils/time';
+import { PrismaClient } from '@prisma/client';
 
 export interface Where {
   id?: number;

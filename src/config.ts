@@ -1,5 +1,7 @@
 import { SITE } from './shared';
 
+export const privateDomainName = 'private.api-service';
+
 export const SITES: {
   [key in SITE]: { id: SITE; name: string; urls: string[] };
 } = {
