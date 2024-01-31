@@ -1,4 +1,5 @@
-import { now } from "@/utils/time";
+import { now } from '@/utils/time';
+import { PrismaClient } from '@prisma/client/extension';
 
 export class BatchHistoryStore {
   private client: PrismaClient;

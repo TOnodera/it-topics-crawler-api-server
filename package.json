@@ -2,13 +2,15 @@
   "name": "api",
   "version": "1.0.0",
   "description": "crawler api",
-  "main": "index.js",
+  "main": "app/dist/main.js",
   "scripts": {
     "db:seed": "tsx prisma/seeders/run.ts",
     "db:reset": "prisma migrate reset --force",
-    "run": "",
+    "clean": "tsc --build --clean",
+    "start": "npm run clean && tsc --build && node ./dist/src/main.js",
     "dev": "tsx src/main.ts",
     "watch": "tsx watch src/main.ts",
+    "format": "prettier --write ./src/**/*",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
