@@ -1,5 +1,5 @@
-import { PrismaClient } from '@prisma/client';
-import { SITES } from '@/config';
+import { PrismaClient } from "@prisma/client";
+import { SITES } from "@/config";
 
 export const siteSeeder = async (client: PrismaClient) => {
   for (const key in SITES) {

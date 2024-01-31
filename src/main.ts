@@ -1,8 +1,12 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import Express from "express";
+import helmet from "helmet";
+const app = Express();
+const port = 3000;
+// セキュリティ対策
+app.use(helmet());
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
-}
-bootstrap();
+app.get("/", (req, res) => {
+  res.send("hello");
+});
+
+app.listen(port, () => {});

@@ -21,7 +21,7 @@ RUN sed -i -e 's/# \(ja_JP.UTF-8\)/\1/' /etc/locale.gen \
     && locale-gen
 
 # ユーザー設定
-RUN npm i -g @nestjs/cli 
+RUN npm i -g typescript 
 ARG userid=1000
 RUN usermod -s /bin/bash -u ${userid} node
 WORKDIR /home/node/api
