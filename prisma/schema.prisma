@@ -1,0 +1,63 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Article {
+  id          Int      @id @default(autoincrement()) // サロゲートキー
+  siteId      Int // サイトマスタのID
+  contentId   String // 対象サイトで割り振られている記事のID
+  title       String //記事のタイトル
+  content     String // 記事の内容
+  contentHash String // 記事の内容のhash値
+  published   Boolean  @default(false) //公開フラグ
+  Site        Site     @relation(fields: [siteId], references: [id]) // サイトマスタとのリレーション定義
+  url         String // サイトURL
+  createdAt   DateTime @default(now()) @db.Timestamp(6)
+  updatedAt   DateTime @default(now()) @db.Timestamp(6)
+}
+
+model Site {
+  id           Int            @id @default(autoincrement())
+  name         String         @db.VarChar(255)
+  Article      Article[]
+  CrawlerStats CrawlerStats[]
+  createdAt    DateTime       @default(now()) @db.Timestamp(6)
+  updatedAt    DateTime       @default(now()) @db.Timestamp(6)
+}
+
+model CrawlerStats {
+  id                               Int          @id @default(autoincrement())
+  requestsFinished                 Int?
+  requestsFailed                   Int?
+  retryHistogram                   Int[]
+  requestAvgFailedDurationMillis   Int?
+  requestAvgFinishedDurationMillis Int?
+  requestsFinishedPerMinute        Int?
+  requestsFailedPerMinute          Int?
+  requestTotalDurationMillis       Int?
+  requestsTotal                    Int?
+  crawlerRuntimeMillis             Int?
+  Site                             Site         @relation(fields: [siteId], references: [id])
+  siteId                           Int
+  createdAt                        DateTime     @default(now()) @db.Timestamp(6)
+  updatedAt                        DateTime     @default(now()) @db.Timestamp(6)
+  BatchHistory                     BatchHistory @relation(fields: [batchHistoryId], references: [id])
+  batchHistoryId                   Int
+}
+
+model BatchHistory {
+  id           Int            @id @default(autoincrement())
+  startAt      DateTime       @default(now()) @db.Timestamp(6)
+  endAt        DateTime       @default(now()) @db.Timestamp(6)
+  createdAt    DateTime       @default(now()) @db.Timestamp(6)
+  updatedAt    DateTime       @default(now()) @db.Timestamp(6)
+  CrawlerStats CrawlerStats[]
+}

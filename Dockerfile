@@ -24,8 +24,8 @@ RUN sed -i -e 's/# \(ja_JP.UTF-8\)/\1/' /etc/locale.gen \
 RUN npm i -g @nestjs/cli 
 ARG userid=1000
 RUN usermod -s /bin/bash -u ${userid} node
-WORKDIR /home/node/crawler/app
-COPY . /home/node/crawler/app 
+WORKDIR /home/node/api
+COPY . /home/node/api 
 RUN chown -R ${userid}:${userid} /home/node/
 
 # 起動
