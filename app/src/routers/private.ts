@@ -60,13 +60,15 @@ privateRouter.post(
   '/batch-end-writer',
   async (
     { body }: Request<UpdateBatchHistory>,
-    res: Response<BatchHistory>,
+    res: Response<UpdateBatchHistory>,
     next: NextFunction
   ) => {
     const store = new BatchHistoryStore(client);
     try {
       const batchHistory = await store.updateBatchHistory(body.id);
-      return res.status(StatusCodes.CREATED).json({ ...batchHistory });
+      return res
+        .status(StatusCodes.CREATED)
+        .json({ id: body.id, ...batchHistory });
     } catch (e) {
       next(e);
     }

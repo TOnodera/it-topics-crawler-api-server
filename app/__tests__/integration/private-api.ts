@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeAll } from '@jest/globals';
-import request from 'supertest';
+import request, { Response } from 'supertest';
 import { app } from '@/app';
 import { SITE } from '@/shared';
 import { StatusCodes } from 'http-status-codes';
@@ -106,16 +106,18 @@ describe('private apiのテスト', () => {
     expect(response.status).toBe(StatusCodes.CREATED);
     const { id }: { id: number } = response.body;
 
-    const { startAt, endAt, createdAt, updatedAt }: UpdateBatchHistory =
-      await request(app)
-        .post('/api-private/batch-end-writer')
-        .send({ id })
-        .set('host', 'private.api-service');
+    type SuperTestResponse<T> = Omit<Response, 'body'> & {
+      body: T;
+    };
+    const { body }: SuperTestResponse<UpdateBatchHistory> = await request(app)
+      .post('/api-private/batch-end-writer')
+      .send({ id })
+      .set('host', 'private.api-service');
 
-    expect(typeof id).toBeInstanceOf('number');
-    expect(typeof startAt).toBeInstanceOf('Date');
-    expect(typeof endAt).toBeInstanceOf('Date');
-    expect(typeof createdAt).toBeInstanceOf('Date');
-    expect(typeof updatedAt).toBeInstanceOf('Date');
+    expect(typeof body.id == 'number').toBeTruthy();
+    expect(typeof body.startAt == 'string').toBeTruthy();
+    expect(typeof body.endAt == 'string').toBeTruthy();
+    expect(typeof body.createdAt == 'string').toBeTruthy();
+    expect(typeof body.updatedAt == 'string').toBeTruthy();
   });
 });
