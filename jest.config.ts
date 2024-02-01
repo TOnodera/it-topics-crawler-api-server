@@ -63,6 +63,7 @@ const config: Config = {
 
   // A path to a module which exports an async function that is triggered once before all test suites
   // globalSetup: undefined,
+  globalSetup: '<rootDir>/testsetup/setup.ts',
 
   // A path to a module which exports an async function that is triggered once after all test suites
   // globalTeardown: undefined,
@@ -77,11 +78,7 @@ const config: Config = {
   // moduleDirectories: [
   //   "node_modules"
   // ],
-  testPathIgnorePatterns: [
-    '/node_modules/',
-    '/__tests__/__settings__/',
-    '/prisma/',
-  ],
+  testPathIgnorePatterns: ['/node_modules/', '/__tests__/setup/', '/prisma/'],
 
   // An array of file extensions your modules use
   // moduleFileExtensions: [
@@ -97,7 +94,6 @@ const config: Config = {
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   moduleNameMapper: {
-    '^orm/(.*)': '<rootDir>/prisma/$1',
     '^@/(.*)': '<rootDir>/src/$1',
   },
 
@@ -155,7 +151,7 @@ const config: Config = {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  // testEnvironment: "jest-environment-node",
+  testEnvironment: 'node',
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},

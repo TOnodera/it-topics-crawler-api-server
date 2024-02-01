@@ -29,7 +29,7 @@ privateRouter.post(
 );
 
 privateRouter.post(
-  '/stats-writer',
+  '/crawler-stats-writer',
   ({ body }: Request<CrawlerStats>, res: Response, next: NextFunction) => {
     const store = new CrawlerStatsStore(client);
     store

@@ -1,8 +1,8 @@
 import { test, describe, expect } from '@jest/globals';
 import { PrismaClient } from '@prisma/client';
-import { resetAndSeedDatabase } from '../../__settings__/utility';
+import { resetAndSeedDatabase } from '../../../testsetup/utility';
 import { CrawlerStatsStore } from '@/store/CrawlerStatsStore';
-import { batchHistorySeeder } from 'prisma/seeders/batchHistorySeeder';
+import { batchHistorySeeder } from '../../../prisma/seeders/batchHistorySeeder';
 import { SITE } from '@/shared';
 
 const client = new PrismaClient();

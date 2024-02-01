@@ -1,7 +1,7 @@
 import { test, describe, expect } from '@jest/globals';
 import { ArticleStore } from '@/store/ArticleStore';
 import { PrismaClient } from '@prisma/client';
-import { resetAndSeedDatabase } from '../../__settings__/utility';
+import { resetAndSeedDatabase } from '../../../testsetup/utility';
 import { SITE } from '@/shared';
 
 const client = new PrismaClient();

@@ -8,5 +8,6 @@ export const errorHandler = (
   _: NextFunction
 ) => {
   res.status(StatusCodes.INTERNAL_SERVER_ERROR);
+  console.error(error);
   res.json({ error });
 };

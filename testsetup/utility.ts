@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { exec } from 'child_process';
-import { runSeed } from 'orm/seeders/seeders';
+import { runSeed } from '../prisma/seeders/seeders';
 
 export const seedDatabase = async (client: PrismaClient) => {
   if (process.env.NODE_ENV == 'production') {
@@ -15,7 +15,7 @@ export const seedDatabase = async (client: PrismaClient) => {
 };
 
 export const truncate = async (client: PrismaClient) => {
-  const tablenames = await client.$queryRaw<
+  const tablenames: { tablename: string }[] = await client.$queryRaw<
     Array<{ tablename: string }>
   >`SELECT tablename FROM pg_tables WHERE schemaname='public'`;
 
