@@ -1,0 +1,25 @@
+version: "3"
+services:
+  api:
+    build: ./app
+  # 開発用DB
+  postgres-service:
+    image: takeshi1215/postgres16:v1.1
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: crawler
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+  # テスト用DB
+  db_test:
+    image: takeshi1215/postgres16:v1.1
+    ports:
+      - 4321:5432
+    environment:
+      POSTGRES_DB: crawler
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+networks:
+  default:
+    name: crawler_dev_net
