@@ -7,7 +7,7 @@
     "db:seed": "tsx prisma/seeders/run.ts",
     "db:reset": "prisma migrate reset --force",
     "clean": "tsc --build --clean",
-    "start": "npm run clean && tsc --build && node ./dist/src/main.js",
+    "start": "npm run clean && tsc && tsc-alias && node ./dist/src/main.js",
     "dev": "tsx src/main.ts",
     "watch": "tsx watch src/main.ts",
     "format": "prettier --write ./src/**/*",
@@ -29,6 +29,7 @@
     "supertest": "^6.3.4",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.8",
     "tsx": "^4.7.0"
   },
   "dependencies": {
