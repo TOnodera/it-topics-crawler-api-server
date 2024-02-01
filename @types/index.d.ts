@@ -48,6 +48,10 @@ interface UpdateBatchHistory {
   updatedAt?: Date;
 }
 
+interface BatchStartWriterResponse {
+  id: number;
+}
+
 interface Site {
   id: number;
   name: string;

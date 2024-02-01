@@ -41,26 +41,34 @@ privateRouter.post(
 
 privateRouter.post(
   '/batch-start-writer',
-  (_: Request, res: Response, next: NextFunction) => {
+  async (
+    _: Request,
+    res: Response<BatchStartWriterResponse>,
+    next: NextFunction
+  ) => {
     const store = new BatchHistoryStore(client);
-    store
-      .createBatchHistory()
-      .then(() => res.status(StatusCodes.CREATED).json({}))
-      .catch(next);
+    try {
+      const id = await store.createBatchHistory();
+      return res.status(StatusCodes.CREATED).json({ id });
+    } catch (e) {
+      next(e);
+    }
   }
 );
 
 privateRouter.post(
   '/batch-end-writer',
-  (
+  async (
     { body }: Request<UpdateBatchHistory>,
-    res: Response,
+    res: Response<BatchHistory>,
     next: NextFunction
   ) => {
     const store = new BatchHistoryStore(client);
-    store
-      .updateBatchHistory(body.id)
-      .then(() => res.status(StatusCodes.CREATED).json({}))
-      .catch(next);
+    try {
+      const batchHistory = await store.updateBatchHistory(body.id);
+      return res.status(StatusCodes.CREATED).json({ ...batchHistory });
+    } catch (e) {
+      next(e);
+    }
   }
 );

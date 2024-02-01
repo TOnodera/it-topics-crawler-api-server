@@ -1,4 +1,4 @@
-import { test, describe, expect } from '@jest/globals';
+import { test, describe, expect, beforeAll } from '@jest/globals';
 import { PrismaClient } from '@prisma/client';
 import { resetAndSeedDatabase } from '../../../testsetup/utility';
 import { CrawlerStatsStore } from '@/store/CrawlerStatsStore';
