@@ -2,6 +2,12 @@ version: "3"
 services:
   api:
     build: ./app
+    depends_on:
+       - postgres-service
+    networks:
+      default:
+        aliases:
+          - private.api-service
   # 開発用DB
   postgres-service:
     image: takeshi1215/postgres16:v1.1
