@@ -142,4 +142,35 @@ describe('private apiのテスト', () => {
     expect(typeof body.createdAt == 'string').toBeTruthy();
     expect(typeof body.updatedAt == 'string').toBeTruthy();
   });
+
+  test('article-writer / hostnameがプライベートなドメイン名の場合はステータスコードCREATED', async () => {
+    const fixture = {
+      title: 'title',
+      content: 'content',
+      contentHash: 'content_hash',
+      contentId: 'contentId',
+      url: 'https://example.com',
+      siteId: SITE.QIITA,
+    };
+    const responce = await request(app)
+      .post('/api-private/article-writer')
+      .send(fixture)
+      .set('host', 'private.api-service');
+    expect(responce.status).toBe(StatusCodes.CREATED);
+  });
+  test('article-writer / hostnameがプライベートなドメイン名以外の場合はFORBIDDEN', async () => {
+    const fixture = {
+      title: 'title',
+      content: 'content',
+      contentHash: 'content_hash',
+      contentId: 'contentId',
+      url: 'https://example.com',
+      siteId: SITE.QIITA,
+    };
+    const responce = await request(app)
+      .post('/api-private/article-writer')
+      .send(fixture)
+      .set('host', 'public.api-service');
+    expect(responce.status).toBe(StatusCodes.FORBIDDEN);
+  });
 });
