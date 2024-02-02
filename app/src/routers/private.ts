@@ -17,6 +17,32 @@ privateRouter.use((req, res, next) => {
   next();
 });
 
+privateRouter.get(
+  '/article-reader/:siteId/:contentId',
+  (
+    { params }: Request<{ siteId: number; contentId: string }>,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const store = new ArticleStore(client);
+    store
+      .getArticleByContentId(params.siteId, params.contentId)
+      .then(() => res.status(StatusCodes.CREATED).json({}))
+      .catch(next);
+  }
+);
+
+privateRouter.post(
+  '/article-writer',
+  ({ body }: Request<Article>, res: Response, next: NextFunction) => {
+    const store = new ArticleStore(client);
+    store
+      .createArticle(body)
+      .then(() => res.status(StatusCodes.CREATED).json({}))
+      .catch(next);
+  }
+);
+
 privateRouter.post(
   '/articles-writer',
   ({ body }: Request<Article[]>, res: Response, next: NextFunction) => {

@@ -30,3 +30,5 @@ RUN chown -R ${userid}:${userid} /home/node/
 
 # 起動
 USER node
+
+CMD sleep infinity
