@@ -19,16 +19,22 @@ privateRouter.use((req, res, next) => {
 
 privateRouter.get(
   '/article-reader/:siteId/:contentId',
-  (
-    { params }: Request<{ siteId: number; contentId: string }>,
+  async (
+    { params }: Request<{ siteId: string; contentId: string }>,
     res: Response,
     next: NextFunction
   ) => {
     const store = new ArticleStore(client);
-    store
-      .getArticleByContentId(params.siteId, params.contentId)
-      .then(() => res.status(StatusCodes.CREATED).json({}))
-      .catch(next);
+    try {
+      const article = await store.getArticleByContentId(
+        Number(params.siteId),
+        params.contentId
+      );
+      return res.status(StatusCodes.OK).json(article);
+    } catch (e) {
+      next(e);
+    }
+    return res.status(StatusCodes.NOT_FOUND).json();
   }
 );
 

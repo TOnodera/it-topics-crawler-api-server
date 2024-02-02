@@ -12,6 +12,7 @@ describe('private apiのテスト', () => {
   beforeAll(async () => {
     return await resetAndSeedDatabase(client);
   });
+
   test('articles-writer / hostnameがプライベートなドメイン名の場合はステータスコードCREATED', async () => {
     const fixtures = [
       {
@@ -43,6 +44,27 @@ describe('private apiのテスト', () => {
     const responce = await request(app)
       .post('/api-private/articles-writer')
       .send(fixtures)
+      .set('host', 'public.api-service');
+    expect(responce.status).toBe(StatusCodes.FORBIDDEN);
+  });
+
+  test('article-reader / hostnameがプライベートなドメイン名の場合はステータスコードOK', async () => {
+    const siteId = SITE.QIITA;
+    const contentId = 'contentId';
+
+    type SuperTestResponse<T> = Omit<Response, 'body'> & { body: T };
+    const { status, body }: SuperTestResponse<Article> = await request(app)
+      .get(`/api-private/article-reader/${siteId}/${contentId}`)
+      .set('host', 'private.api-service');
+    expect(status).toBe(StatusCodes.OK);
+    expect(body.title).toBe('title');
+    expect(body.content).toBe('content');
+  });
+  test('articles-reader / hostnameがプライベートなドメイン名以外の場合はFORBIDDEN', async () => {
+    const siteId = SITE.QIITA;
+    const contentId = 'contentId';
+    const responce = await request(app)
+      .post(`/api-private/article-reader/${siteId}/${contentId}`)
       .set('host', 'public.api-service');
     expect(responce.status).toBe(StatusCodes.FORBIDDEN);
   });
