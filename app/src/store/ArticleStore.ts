@@ -9,6 +9,7 @@ export interface Where {
   contentHash?: string;
   published?: boolean;
   siteId?: number;
+  batchHistoryId: number;
 }
 
 export class ArticleStore {
@@ -44,6 +45,8 @@ export class ArticleStore {
     siteId: SITE,
     contentId: string
   ): Promise<Article | null> => {
-    return await this.client.article.findFirst({ where: { contentId, siteId } });
+    return await this.client.article.findFirst({
+      where: { contentId, siteId },
+    });
   };
 }

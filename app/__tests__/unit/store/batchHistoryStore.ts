@@ -37,7 +37,7 @@ describe('BatchHistoryStoreのテスト', () => {
       await store.createBatchHistory(fixtures[idx]);
       const result = await store.getBatchHistory(Number(idx) + 1);
       if (fixtures[idx].startAt) {
-        expect(result?.startAt.toDateString()).toBe(
+        expect(result?.startAt?.toDateString()).toBe(
           fixtures[idx].startAt?.toDateString()
         );
       }

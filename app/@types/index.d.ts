@@ -5,6 +5,7 @@ interface NewArticle {
   contentHash: string;
   url: string;
   contentId: string;
+  batchHistoryId: number;
 }
 
 interface Article {
@@ -14,6 +15,7 @@ interface Article {
   contentHash: string;
   published: boolean;
   siteId: number;
+  batchHistoryId: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -25,8 +27,12 @@ interface BatchHistory {
   updatedAt?: Date;
 }
 
-interface RegisteredBatchHistory extends BatchHistory {
+interface RegisteredBatchHistory {
   id: number;
+  startAt: Date;
+  endAt: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 interface CrawlerStats {

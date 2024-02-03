@@ -19,7 +19,7 @@ export class BatchHistoryStore {
       data: { ...data, endAt: now(), updatedAt: now() },
     });
   }
-  async getBatchHistory(id: number): Promise<RegisteredBatchHistory[]> {
+  async getBatchHistory(id: number): Promise<RegisteredBatchHistory> {
     return await this.client.batchHistory.findUnique({ where: { id } });
   }
   async getBatchHistoryByWhere(where: any): Promise<RegisteredBatchHistory[]> {

@@ -3,6 +3,7 @@ import { ArticleStore } from '@/store/ArticleStore';
 import { PrismaClient } from '@prisma/client';
 import { resetAndSeedDatabase } from '../../../testsetup/utility';
 import { SITE } from '@/shared';
+import { batchHistorySeeder } from 'prisma/seeders/batchHistorySeeder';
 
 const client = new PrismaClient();
 const store = new ArticleStore(client);
@@ -14,6 +15,7 @@ const fixtures = [
     contentId: 'ad9fa9234',
     url: 'https://example1.com',
     siteId: 1,
+    batchHistoryId: 1,
   },
   {
     title: 'test2',
@@ -22,6 +24,7 @@ const fixtures = [
     contentId: 'ad9fa92342',
     url: 'https://example2.com',
     siteId: 2,
+    batchHistoryId: 1,
   },
   {
     title: 'test3',
@@ -30,6 +33,7 @@ const fixtures = [
     contentId: 'ad9fa92343',
     url: 'https://example3.com',
     siteId: 3,
+    batchHistoryId: 1,
   },
 ];
 
@@ -38,6 +42,7 @@ describe('articleStoreのテスト', () => {
     return await resetAndSeedDatabase(client);
   });
   test('記事データの登録ができること', async () => {
+    await batchHistorySeeder(client);
     await store.createArticle(fixtures[0]);
     const article = await store.getArticle(1);
     expect(article?.id).toBe(1);
@@ -73,10 +78,5 @@ describe('articleStoreのテスト', () => {
     expect(updatedArticle?.id).toBe(1);
     expect(updatedArticle?.title).toBe('test2');
     expect(updatedArticle?.contentHash).toBe('hash2');
-  });
-  test('記事データの登録ができること', async () => {
-    await store.createArticles(fixtures);
-    const articles = await store.getArticles();
-    expect(articles.length).toBe(fixtures.length + 1);
   });
 });

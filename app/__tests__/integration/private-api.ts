@@ -14,6 +14,7 @@ describe('private apiのテスト', () => {
   });
 
   test('articles-writer / hostnameがプライベートなドメイン名の場合はステータスコードCREATED', async () => {
+    await batchHistorySeeder(client);
     const fixtures = [
       {
         title: 'title',
@@ -22,6 +23,7 @@ describe('private apiのテスト', () => {
         contentId: 'contentId',
         url: 'https://example.com',
         siteId: SITE.QIITA,
+        batchHistoryId: 1,
       },
     ];
     const responce = await request(app)
@@ -151,6 +153,7 @@ describe('private apiのテスト', () => {
       contentId: 'contentId',
       url: 'https://example.com',
       siteId: SITE.QIITA,
+      batchHistoryId: 1,
     };
     const responce = await request(app)
       .post('/api-private/article-writer')

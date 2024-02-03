@@ -11,17 +11,19 @@ datasource db {
 }
 
 model Article {
-  id          Int      @id @default(autoincrement()) // サロゲートキー
-  siteId      Int // サイトマスタのID
-  contentId   String // 対象サイトで割り振られている記事のID
-  title       String //記事のタイトル
-  content     String // 記事の内容
-  contentHash String // 記事の内容のhash値
-  published   Boolean  @default(false) //公開フラグ
-  Site        Site     @relation(fields: [siteId], references: [id]) // サイトマスタとのリレーション定義
-  url         String // サイトURL
-  createdAt   DateTime @default(now()) @db.Timestamp(6)
-  updatedAt   DateTime @default(now()) @db.Timestamp(6)
+  id             Int          @id @default(autoincrement()) // サロゲートキー
+  siteId         Int // サイトマスタのID
+  contentId      String // 対象サイトで割り振られている記事のID
+  title          String //記事のタイトル
+  content        String // 記事の内容
+  contentHash    String // 記事の内容のhash値
+  published      Boolean      @default(false) //公開フラグ
+  Site           Site         @relation(fields: [siteId], references: [id]) // サイトマスタとのリレーション定義
+  BatchHistory   BatchHistory @relation(fields: [batchHistoryId], references: [id])
+  url            String // サイトURL
+  createdAt      DateTime     @default(now()) @db.Timestamp(6)
+  updatedAt      DateTime     @default(now()) @db.Timestamp(6)
+  batchHistoryId Int
 }
 
 model Site {
@@ -60,4 +62,5 @@ model BatchHistory {
   createdAt    DateTime       @default(now()) @db.Timestamp(6)
   updatedAt    DateTime       @default(now()) @db.Timestamp(6)
   CrawlerStats CrawlerStats[]
+  Article      Article[]
 }
