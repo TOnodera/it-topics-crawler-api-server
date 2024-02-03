@@ -33,17 +33,17 @@ export class ArticleStore {
   };
 
   getArticle = async (id: number): Promise<Article | null> => {
-    return this.client.article.findUnique({ where: { id } });
+    return await this.client.article.findUnique({ where: { id } });
   };
 
   getArticles = async (where?: Where): Promise<Article[]> => {
-    return this.client.article.findMany({ where });
+    return await this.client.article.findMany({ where });
   };
 
   getArticleByContentId = async (
     siteId: SITE,
     contentId: string
   ): Promise<Article | null> => {
-    return this.client.article.findFirst({ where: { contentId, siteId } });
+    return await this.client.article.findFirst({ where: { contentId, siteId } });
   };
 }

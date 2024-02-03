@@ -19,22 +19,18 @@ privateRouter.use((req, res, next) => {
 
 privateRouter.get(
   '/article-reader/:siteId/:contentId',
-  async (
+  (
     { params }: Request<{ siteId: string; contentId: string }>,
-    res: Response,
+    res: Response<Article | null>,
     next: NextFunction
   ) => {
     const store = new ArticleStore(client);
-    try {
-      const article = await store.getArticleByContentId(
-        Number(params.siteId),
-        params.contentId
-      );
-      return res.status(StatusCodes.OK).json(article);
-    } catch (e) {
-      next(e);
-    }
-    return res.status(StatusCodes.NOT_FOUND).json();
+    store
+      .getArticleByContentId(Number(params.siteId), params.contentId)
+      .then((article) => {
+        res.status(StatusCodes.OK).json(article);
+      })
+      .catch(next);
   }
 );
 
@@ -98,9 +94,7 @@ privateRouter.post(
     const store = new BatchHistoryStore(client);
     try {
       const batchHistory = await store.updateBatchHistory(body.id);
-      return res
-        .status(StatusCodes.CREATED)
-        .json({ id: body.id, ...batchHistory });
+      return res.status(StatusCodes.OK).json({ ...batchHistory, id: body.id });
     } catch (e) {
       next(e);
     }

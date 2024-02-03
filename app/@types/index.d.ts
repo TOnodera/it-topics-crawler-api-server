@@ -25,6 +25,10 @@ interface BatchHistory {
   updatedAt?: Date;
 }
 
+interface RegisteredBatchHistory extends BatchHistory {
+  id: number;
+}
+
 interface CrawlerStats {
   requestsFinished: number | null;
   requestsFailed: number | null;

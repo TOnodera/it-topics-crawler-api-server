@@ -4,6 +4,8 @@ services:
     build: ./app
     depends_on:
        - postgres-service
+    volumes:
+      - ./:/home/node/api
     networks:
       default:
         aliases:
