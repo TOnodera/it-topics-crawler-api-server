@@ -11,6 +11,27 @@ export interface Where {
   batchHistoryId: number;
 }
 
+export interface NewArticle {
+  title: string;
+  siteId: number;
+  content: string;
+  contentHash: string;
+  url: string;
+  contentId: string;
+}
+
+export interface Article {
+  id: number;
+  title: string;
+  content: string;
+  contentHash: string;
+  published: boolean;
+  siteId: number;
+  batchHistoryId: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export class ArticleStore {
   private client: PrismaClient;
   constructor(client: PrismaClient) {

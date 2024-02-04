@@ -1,8 +1,9 @@
 import { privateDomainName } from '@/config';
 import { ArticleStore } from '@/store/ArticleStore';
-import { BatchHistoryStore } from '@/store/BatchHistoryStore';
+import { BatchHistoryStore, BatchResult } from '@/store/BatchHistoryStore';
 import { CrawlerStatsStore } from '@/store/CrawlerStatsStore';
 import { getPrismaClient } from '@/store/prismaClient';
+import { Article } from '@prisma/client';
 import { PrismaClient } from '@prisma/client/extension';
 import { NextFunction, Request, Response, Router } from 'express';
 import { StatusCodes } from 'http-status-codes';

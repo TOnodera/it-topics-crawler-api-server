@@ -1,5 +1,5 @@
 import { test, describe, expect, beforeAll } from '@jest/globals';
-import { PrismaClient } from '@prisma/client';
+import { BatchHistory, PrismaClient } from '@prisma/client';
 import { resetAndSeedDatabase } from '../../../testsetup/utility';
 import { BatchHistoryStore } from '@/store/BatchHistoryStore';
 import { DateTime } from 'luxon';

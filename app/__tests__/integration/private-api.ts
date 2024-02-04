@@ -6,6 +6,8 @@ import { StatusCodes } from 'http-status-codes';
 import { getPrismaClient } from '@/store/prismaClient';
 import { resetAndSeedDatabase } from '../../testsetup/utility';
 import { batchHistorySeeder } from '../../prisma/seeders/batchHistorySeeder';
+import { BatchResult } from '@/store/BatchHistoryStore';
+import { NewArticle } from '@/store/ArticleStore';
 
 const client = getPrismaClient();
 describe('private apiのテスト', () => {

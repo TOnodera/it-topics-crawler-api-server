@@ -1,4 +1,33 @@
 import { PrismaClient } from '@prisma/client/extension';
+import { CrawlingResult } from './CrawlerStatsStore';
+
+export interface BatchHistory {
+  startAt?: Date;
+  endAt?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export interface RegisteredBatchHistory {
+  id: number;
+  startAt: Date;
+  endAt: Date;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface BatchResult {
+  crawlingResults: CrawlingResult[];
+  batchHistory: BatchHistory;
+}
+
+export interface UpdateBatchHistory {
+  id: number;
+  startAt?: Date;
+  endAt?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
 
 export class BatchHistoryStore {
   private client: PrismaClient;
