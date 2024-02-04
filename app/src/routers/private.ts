@@ -25,18 +25,20 @@ privateRouter.post(
     res: Response,
     next: NextFunction
   ) => {
-    client.$transaction(async (tx: PrismaClient) => {
-      const articleStore = new ArticleStore(tx);
-      const crawlerStatsStore = new CrawlerStatsStore(tx);
-      for (const result of body.data) {
-        await articleStore.createArticles(result.articles);
-        await crawlerStatsStore.createCrawlerStats(result.stats);
-      }
-    });
     try {
+      client.$transaction(async (tx: PrismaClient) => {
+        const batchHistoryStore = new BatchHistoryStore(tx);
+        const articleStore = new ArticleStore(tx);
+        const crawlerStatsStore = new CrawlerStatsStore(tx);
+        const batchHistoryId = await batchHistoryStore.createBatchHistory(tx);
+        for (const result of body.data) {
+          await articleStore.createArticles(result.articles, batchHistoryId);
+          await crawlerStatsStore.createCrawlerStats(result.stats);
+        }
+      });
       res.status(StatusCodes.CREATED).send({ isError: false });
     } catch (e) {
-      res.status(StatusCodes.CREATED).send({ isError: true });
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ isError: true });
       next(e);
     }
   }

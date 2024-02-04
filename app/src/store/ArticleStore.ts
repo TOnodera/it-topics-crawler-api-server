@@ -18,12 +18,14 @@ export class ArticleStore {
     this.client = client;
   }
 
-  createArticle = async (data: NewArticle) => {
-    await this.client.article.create({ data: { ...data, published: true } });
-  };
-
-  createArticles = async (data: NewArticle[]) => {
-    await this.client.article.createMany({ data });
+  createArticles = async (datas: NewArticle[], batchHistoryId: number) => {
+    const newDatas = datas.map((v) => {
+      return {
+        ...v,
+        batchHistoryId,
+      };
+    });
+    await this.client.article.createMany({ data: newDatas });
   };
 
   updateArticle = async (data: Article) => {

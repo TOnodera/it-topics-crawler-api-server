@@ -5,7 +5,6 @@ interface NewArticle {
   contentHash: string;
   url: string;
   contentId: string;
-  batchHistoryId: number;
 }
 
 interface Article {
