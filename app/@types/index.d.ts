@@ -20,6 +20,12 @@ interface Article {
   updatedAt: Date;
 }
 
+interface CrawlingResult {
+  siteId: SITE;
+  articles: NewArticleRequest[];
+  stats: CrawlerStats;
+}
+
 interface BatchHistory {
   startAt?: Date;
   endAt?: Date;

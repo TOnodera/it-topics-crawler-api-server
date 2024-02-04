@@ -35,35 +35,25 @@ privateRouter.get(
 );
 
 privateRouter.post(
-  '/article-writer',
-  ({ body }: Request<Article>, res: Response, next: NextFunction) => {
-    const store = new ArticleStore(client);
-    store
-      .createArticle(body)
-      .then(() => res.status(StatusCodes.CREATED).json({}))
-      .catch(next);
-  }
-);
+  '/regist',
+  (
+    { body }: Request<any, any, CrawlingResult[]>,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const articleStore = new ArticleStore(client);
+    const crawlerStatsStore = new CrawlerStatsStore(client);
 
-privateRouter.post(
-  '/articles-writer',
-  ({ body }: Request<Article[]>, res: Response, next: NextFunction) => {
-    const store = new ArticleStore(client);
-    store
-      .createArticles(body)
-      .then(() => res.status(StatusCodes.CREATED).json({}))
-      .catch(next);
-  }
-);
-
-privateRouter.post(
-  '/crawler-stats-writer',
-  ({ body }: Request<CrawlerStats>, res: Response, next: NextFunction) => {
-    const store = new CrawlerStatsStore(client);
-    store
-      .createCrawlerStats(body)
-      .then(() => res.status(StatusCodes.CREATED).json({}))
-      .catch(next);
+    for (const result of body) {
+      articleStore
+        .createArticles(result.articles)
+        .then(() => res.status(StatusCodes.CREATED).json({}))
+        .catch(next);
+      crawlerStatsStore
+        .createCrawlerStats(result.stats)
+        .then(() => res.status(StatusCodes.CREATED).json({}))
+        .catch(next);
+    }
   }
 );
 

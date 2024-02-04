@@ -1,5 +1,4 @@
 import { ArticleStore } from '@/store/ArticleStore';
-import { BatchHistoryStore } from '@/store/BatchHistoryStore';
 import { getPrismaClient } from '@/store/prismaClient';
 import { NextFunction, Request, Response, Router } from 'express';
 import { StatusCodes } from 'http-status-codes';
@@ -15,19 +14,8 @@ publicRouter.get(
   '/topics',
   async (_: Request, res: Response, next: NextFunction) => {
     try {
-      const batchHistoryStore = new BatchHistoryStore(client);
-      const histories = await batchHistoryStore.getBatchHistoryByWhere({
-        orderBy: { createdAt: 'desc' },
-        limit: 1,
-      });
-      if (histories.length == 0) {
-        res.status(StatusCodes.NOT_FOUND).json({});
-        return;
-      }
       const articleStore = new ArticleStore(client);
-      const articles = await articleStore.getArticles({
-        batchHistoryId: histories[0].id,
-      });
+      const articles = await articleStore.getArticles();
       return res.json(articles);
     } catch (e) {
       res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({});
