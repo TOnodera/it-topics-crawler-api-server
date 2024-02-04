@@ -21,6 +21,9 @@ model Article {
   Site           Site         @relation(fields: [siteId], references: [id]) // サイトマスタとのリレーション定義
   BatchHistory   BatchHistory @relation(fields: [batchHistoryId], references: [id])
   url            String // サイトURL
+  ogpTitle       String?
+  ogpImage       String?
+  ogpDescription String?
   createdAt      DateTime     @default(now()) @db.Timestamp(6)
   updatedAt      DateTime     @default(now()) @db.Timestamp(6)
   batchHistoryId Int

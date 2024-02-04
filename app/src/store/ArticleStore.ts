@@ -18,6 +18,9 @@ export interface NewArticle {
   contentHash: string;
   url: string;
   contentId: string;
+  ogpTitle: string | null;
+  ogpImage: string | null;
+  ogpDescription: string | null;
 }
 
 export interface Article {
@@ -27,6 +30,9 @@ export interface Article {
   contentHash: string;
   published: boolean;
   siteId: number;
+  ogpTitle: string | null;
+  ogpImage: string | null;
+  ogpDescription: string | null;
   batchHistoryId: number;
   createdAt: Date;
   updatedAt: Date;

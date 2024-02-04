@@ -28,6 +28,9 @@ describe('private apiのテスト', () => {
               contentId: 'contentId1',
               url: 'https://example1.com',
               siteId: SITE.QIITA,
+              ogpTitle: 'ogpTitle',
+              ogpImage: 'ogpImage',
+              ogpDescription: 'ogpDesc',
             },
             {
               title: 'title2',
@@ -74,6 +77,9 @@ describe('private apiのテスト', () => {
               contentId: 'contentId1',
               url: 'https://example1.com',
               siteId: SITE.QIITA,
+              ogpTitle: 'ogpTitle',
+              ogpImage: 'ogpImage',
+              ogpDescription: 'ogpDesc',
             },
             {
               title: 'title2',
