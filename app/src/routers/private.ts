@@ -21,54 +21,32 @@ privateRouter.use((req, res, next) => {
 privateRouter.post(
   '/regist',
   async (
-    { body }: Request<CrawlingResult[]>,
+    req: Request<any, any, { data: BatchResult }>,
     res: Response,
     next: NextFunction
   ) => {
     try {
+      const { batchHistory, crawlingResults } = req.body.data;
       client.$transaction(async (tx: PrismaClient) => {
         const batchHistoryStore = new BatchHistoryStore(tx);
         const articleStore = new ArticleStore(tx);
         const crawlerStatsStore = new CrawlerStatsStore(tx);
-        const batchHistoryId = await batchHistoryStore.createBatchHistory(tx);
-        for (const result of body.data) {
+        const batchHistoryId = await batchHistoryStore.createBatchHistory(
+          batchHistory
+        );
+        for (const result of crawlingResults) {
           await articleStore.createArticles(result.articles, batchHistoryId);
-          await crawlerStatsStore.createCrawlerStats(result.stats);
+          await crawlerStatsStore.createCrawlerStats(
+            result.stats,
+            batchHistoryId
+          );
         }
+        res.status(StatusCodes.CREATED).send({ isError: false });
       });
-      res.status(StatusCodes.CREATED).send({ isError: false });
     } catch (e) {
       res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ isError: true });
       next(e);
     }
-  }
-);
-
-privateRouter.post(
-  '/batch-start',
-  (_: Request, res: Response<BatchStartWriterResponse>, next: NextFunction) => {
-    const store = new BatchHistoryStore(client);
-    store
-      .createBatchHistory()
-      .then((id) => res.status(StatusCodes.CREATED).json({ id }))
-      .catch(next);
-  }
-);
-
-privateRouter.post(
-  '/batch-end',
-  (
-    { body }: Request<UpdateBatchHistory>,
-    res: Response<UpdateBatchHistory>,
-    next: NextFunction
-  ) => {
-    const store = new BatchHistoryStore(client);
-    store
-      .updateBatchHistory(body.id)
-      .then((batchHistory) =>
-        res.status(StatusCodes.OK).json({ ...batchHistory, id: body.id })
-      )
-      .catch(next);
   }
 );
 

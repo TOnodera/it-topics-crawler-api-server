@@ -52,7 +52,17 @@ interface CrawlerStats {
   requestsTotal: number | null;
   crawlerRuntimeMillis: number | null;
   siteId: SITE;
-  batchHistoryId: number;
+}
+
+interface CrawlingResult {
+  siteId: SITE;
+  articles: NewArticleRequest[];
+  stats: CrawlerStats;
+}
+
+interface BatchResult {
+  crawlingResults: CrawlingResult[];
+  batchHistory: BatchHistory;
 }
 
 interface UpdateBatchHistory {
@@ -61,10 +71,6 @@ interface UpdateBatchHistory {
   endAt?: Date;
   createdAt?: Date;
   updatedAt?: Date;
-}
-
-interface BatchStartWriterResponse {
-  id: number;
 }
 
 interface Site {
