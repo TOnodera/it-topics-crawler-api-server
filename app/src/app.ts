@@ -13,7 +13,7 @@ app.use(helmet());
 // CORS
 app.use(cors());
 // JSONを扱えるようにする
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '10mb' }));
 // ルータ設定
 app.use('/api-private', privateRouter);
 app.use('/', publicRouter);
