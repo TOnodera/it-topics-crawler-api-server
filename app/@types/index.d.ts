@@ -55,7 +55,6 @@ interface CrawlerStats {
 }
 
 interface CrawlingResult {
-  siteId: SITE;
   articles: NewArticleRequest[];
   stats: CrawlerStats;
 }

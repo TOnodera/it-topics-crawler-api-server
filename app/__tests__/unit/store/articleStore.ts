@@ -43,7 +43,7 @@ describe('articleStoreのテスト', () => {
   });
   test('記事データの登録ができること', async () => {
     await batchHistorySeeder(client);
-    await store.createArticle(fixtures[0]);
+    await store.createArticles(fixtures, 1);
     const article = await store.getArticle(1);
     expect(article?.id).toBe(1);
     expect(article?.title).toBe('test1');

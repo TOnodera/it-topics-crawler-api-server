@@ -1,5 +1,4 @@
 import { SITE } from '@/shared';
-import { now } from '@/utils/time';
 import { PrismaClient } from '@prisma/client';
 
 export interface Where {
@@ -31,7 +30,7 @@ export class ArticleStore {
   updateArticle = async (data: Article) => {
     await this.client.article.update({
       where: { id: data.id },
-      data: { ...data, updatedAt: now() },
+      data: { ...data, updatedAt: new Date() },
     });
   };
 

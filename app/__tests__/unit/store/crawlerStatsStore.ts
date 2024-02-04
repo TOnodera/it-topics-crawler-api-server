@@ -20,7 +20,6 @@ const fixtures = [
     requestsTotal: 8,
     crawlerRuntimeMillis: 9,
     siteId: SITE.CLASSMETHOD,
-    batchHistoryId: 1,
   },
   {
     requestsFinished: undefined,
@@ -34,7 +33,6 @@ const fixtures = [
     requestsTotal: undefined,
     crawlerRuntimeMillis: undefined,
     siteId: SITE.CLASSMETHOD,
-    batchHistoryId: 2,
   },
 ] as CrawlerStats[];
 
@@ -45,7 +43,7 @@ describe('crawlerStatsStoreのテスト', () => {
   });
   test('データの登録ができること', async () => {
     for (const idx in fixtures) {
-      await store.createCrawlerStats(fixtures[idx]);
+      await store.createCrawlerStats(fixtures[idx], 1);
       const result = await store.getCrawlerStats(Number(idx + 1));
       expect(result?.requestsFailedPerMinute).toBe(
         fixtures[idx].requestsFailedPerMinute

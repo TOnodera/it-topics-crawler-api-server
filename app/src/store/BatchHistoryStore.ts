@@ -9,4 +9,7 @@ export class BatchHistoryStore {
     const result = await this.client.batchHistory.create({ data });
     return result.id;
   }
+  async getBatchHistory(id: number): Promise<RegisteredBatchHistory> {
+    return await this.client.batchHistory.findUnique({ where: { id } });
+  }
 }

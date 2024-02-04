@@ -2,22 +2,21 @@ import { test, describe, expect, beforeAll } from '@jest/globals';
 import { PrismaClient } from '@prisma/client';
 import { resetAndSeedDatabase } from '../../../testsetup/utility';
 import { BatchHistoryStore } from '@/store/BatchHistoryStore';
-import { now } from '@/utils/time';
 import { DateTime } from 'luxon';
 
 const client = new PrismaClient();
 const store = new BatchHistoryStore(client);
 const fixtures = [
   {
-    startAt: now(),
+    startAt: new Date(),
     endAt: DateTime.now().plus({ minutes: 2 }).toJSDate(),
-    createdAt: now(),
+    createdAt: new Date(),
     updatedAt: DateTime.now().plus({ minutes: 2 }).toJSDate(),
   },
   {
-    startAt: now(),
+    startAt: new Date(),
     endAt: DateTime.now().plus({ minutes: 2 }).toJSDate(),
-    createdAt: now(),
+    createdAt: new Date(),
     updatedAt: DateTime.now().plus({ minutes: 2 }).toJSDate(),
   },
   {
