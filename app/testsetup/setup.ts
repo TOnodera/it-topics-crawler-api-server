@@ -1,9 +1,8 @@
 export default (): void => {
-  console.log("\nSetup test environment");
-  process.env.DATABASE_URL =
-    "postgresql://postgres:password@db_test:5432/crawler?schema=public";
-  process.env.NODE_ENV = "test";
+  console.log('\n------------------------------------------');
   console.log(`DATABASE_URL=${process.env.DATABASE_URL}`);
+  console.log(`PRIVATE_DOMAIN_NAME=${process.env.PRIVATE_DOMAIN_NAME}`);
   console.log(`NODE_ENV=${process.env.NODE_ENV}`);
+  console.log('------------------------------------------');
   return;
 };

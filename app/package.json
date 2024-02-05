@@ -8,11 +8,11 @@
     "db:reset": "prisma migrate reset --force",
     "clean": "tsc --build --clean",
     "start": "npm run clean && tsc && tsc-alias && node ./dist/src/main.js",
-    "dev": "tsx src/main.ts",
-    "watch": "tsx watch src/main.ts",
+    "dev": "dotenv tsx src/main.ts",
+    "watch": "dotenv tsx watch src/main.ts",
     "format": "prettier --write ./src/**/*",
-    "db.test:reset": "DATABASE_URL=postgresql://postgres:password@db_test:5432/crawler?schema=public prisma migrate reset --force",
-    "test": "npm run db.test:reset && jest --no-cache --runInBand"
+    "db.test:reset": "dotenv -e .env.test -- prisma migrate reset --force",
+    "test": "npm run db.test:reset && dotenv -e .env.test -- jest --no-cache --runInBand"
   },
   "author": "",
   "license": "ISC",

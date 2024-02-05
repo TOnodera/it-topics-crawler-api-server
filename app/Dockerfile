@@ -20,8 +20,8 @@ ENV LANG ja_JP.UTF-8
 RUN sed -i -e 's/# \(ja_JP.UTF-8\)/\1/' /etc/locale.gen \
     && locale-gen
 
-# ユーザー設定
-RUN npm i -g typescript 
+# ユーザー設定 # dotenv-cliは開発時に利用する
+RUN npm i -g typescript dotenv-cli 
 ARG userid=1000
 RUN usermod -s /bin/bash -u ${userid} node
 WORKDIR /home/node/api
