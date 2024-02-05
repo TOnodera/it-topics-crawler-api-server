@@ -1,6 +1,8 @@
 import { SITE } from './shared';
 
 export const privateDomainName = process.env.PRIVATE_API_DOMAIN_NAME;
+export const apiServicePort = process.env.API_SERVICE_PORT;
+
 
 export const SITES: {
   [key in SITE]: { id: SITE; name: string; urls: string[] };

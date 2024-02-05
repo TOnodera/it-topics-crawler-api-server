@@ -1,5 +1,6 @@
 import { app } from './app';
+import { apiServicePort } from './config';
 
-app.listen(process.env.API_SERVICE_PORT, () => {
+app.listen(apiServicePort, () => {
   console.log('server started ...');
 });
