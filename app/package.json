@@ -4,12 +4,12 @@
   "description": "crawler api",
   "main": "app/dist/main.js",
   "scripts": {
-    "db:seed": "tsx prisma/seeders/run.ts",
-    "db:reset": "prisma migrate reset --force",
+    "db:seed": "dotenv -e .env.development -- tsx prisma/seeders/run.ts",
+    "db:reset": "dotenv -e .env.development -- prisma migrate reset --force",
     "clean": "tsc --build --clean",
     "start": "npm run clean && tsc && tsc-alias && node ./dist/src/main.js",
-    "dev": "dotenv tsx src/main.ts",
-    "watch": "dotenv tsx watch src/main.ts",
+    "dev": "dotenv -e .env.development -- tsx src/main.ts",
+    "watch": "dotenv -e .env.development -- tsx watch src/main.ts",
     "format": "prettier --write ./src/**/*",
     "db.test:reset": "dotenv -e .env.test -- prisma migrate reset --force",
     "test": "npm run db.test:reset && dotenv -e .env.test -- jest --no-cache --runInBand"

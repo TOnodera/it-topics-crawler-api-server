@@ -6,8 +6,6 @@ services:
       - postgres-service
     volumes:
       - ./:/home/node/api
-    ports:
-      - 3000:3000
     networks:
       default:
         aliases:

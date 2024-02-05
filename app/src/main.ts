@@ -1,5 +1,5 @@
 import { app } from './app';
 
-app.listen(3000, () => {
+app.listen(process.env.SERVICE_PORT, () => {
   console.log('server started ...');
 });
