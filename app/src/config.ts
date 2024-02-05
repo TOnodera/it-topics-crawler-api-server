@@ -1,7 +1,7 @@
 import { SITE } from './shared';
 
 export const privateDomainName = process.env.PRIVATE_API_DOMAIN_NAME;
-export const apiServicePort = process.env.API_SERVICE_PORT;
+export const appPort = 3000;
 
 
 export const SITES: {

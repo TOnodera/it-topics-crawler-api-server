@@ -1,4 +1,4 @@
-import { apiServicePort, privateDomainName } from '@/config';
+import { privateDomainName } from '@/config';
 import { ArticleStore } from '@/store/ArticleStore';
 import { BatchHistoryStore, BatchResult } from '@/store/BatchHistoryStore';
 import { CrawlerStatsStore } from '@/store/CrawlerStatsStore';
@@ -12,8 +12,7 @@ const client = getPrismaClient();
 export const privateRouter = Router();
 
 privateRouter.use((req, res, next) => {
-  console.log("hostname: ", req.hostname , `${privateDomainName}:${apiServicePort}`,req.hostname != `${privateDomainName}:${apiServicePort}`);
-  if (req.hostname != `${privateDomainName}:${apiServicePort}`) {
+  if (req.hostname != privateDomainName) {
     res.status(StatusCodes.FORBIDDEN).json({});
     return;
   }

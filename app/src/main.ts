@@ -1,6 +1,6 @@
 import { app } from './app';
-import { apiServicePort } from './config';
+import { appPort } from './config';
 
-app.listen(apiServicePort, () => {
+app.listen(appPort, () => {
   console.log('server started ...');
 });
