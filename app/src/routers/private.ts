@@ -12,6 +12,7 @@ const client = getPrismaClient();
 export const privateRouter = Router();
 
 privateRouter.use((req, res, next) => {
+  console.log("hostname: ", req.hostname , `${privateDomainName}:${apiServicePort}`,req.hostname != `${privateDomainName}:${apiServicePort}`);
   if (req.hostname != `${privateDomainName}:${apiServicePort}`) {
     res.status(StatusCodes.FORBIDDEN).json({});
     return;
