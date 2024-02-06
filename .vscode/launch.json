@@ -8,6 +8,20 @@
             "name": "Start Api Server",
             "request": "launch",
             "runtimeArgs": [
+                "start",
+            ],
+            "cwd": "${workspaceFolder}/app",
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "envFile": "${workspaceFolder}/app/.env",
+            "type": "node"
+        },
+        {
+            "name": "Dev Api Server",
+            "request": "launch",
+            "runtimeArgs": [
                 "run",
                 "dev"
             ],
@@ -16,6 +30,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
+            "envFile": "${workspaceFolder}/app/.env.development",
             "type": "node"
         }
     ]

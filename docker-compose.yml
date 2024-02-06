@@ -6,6 +6,7 @@ services:
       - postgres-service
     volumes:
       - ./:/home/node/api
+    command: ["sleep", "infinity"]
     networks:
       default:
         aliases:
