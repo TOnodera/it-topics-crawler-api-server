@@ -51,6 +51,8 @@ export class ArticleStore {
         batchHistoryId,
       };
     });
+    console.log('id: ', batchHistoryId);
+    console.log(newDatas);
     await this.client.article.createMany({ data: newDatas });
   };
 
