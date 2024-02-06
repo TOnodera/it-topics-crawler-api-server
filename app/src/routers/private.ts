@@ -26,6 +26,7 @@ privateRouter.post(
     res: Response,
     next: NextFunction
   ) => {
+    console.log(req.body.data);
     try {
       const { batchHistory, crawlingResults } = req.body.data;
       client.$transaction(async (tx: PrismaClient) => {
@@ -45,6 +46,7 @@ privateRouter.post(
         res.status(StatusCodes.CREATED).send({ isError: false });
       });
     } catch (e) {
+      console.error(e);
       res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ isError: true });
       next(e);
     }
