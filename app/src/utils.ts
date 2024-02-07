@@ -4,7 +4,7 @@ export const parseBearerToken = (autorization?: string) => {
     return;
   }
   const [bearer, token] = autorization.split(' ');
-  if (bearer != 'bearer') {
+  if (bearer != 'Bearer') {
     console.error('tokenが不正です');
     return;
   }
