@@ -31,7 +31,12 @@ const config: Config = {
   // coveragePathIgnorePatterns: [
   //   "/node_modules/"
   // ],
-  coveragePathIgnorePatterns: ['/node_modules/', '/__settings__/', '/prisma/'],
+  coveragePathIgnorePatterns: [
+    '/node_modules/',
+    '/__settings__/',
+    '/prisma/',
+    'dist',
+  ],
 
   // Indicates which provider should be used to instrument code for coverage
   coverageProvider: 'v8',
@@ -78,7 +83,12 @@ const config: Config = {
   // moduleDirectories: [
   //   "node_modules"
   // ],
-  testPathIgnorePatterns: ['/node_modules/', '/__tests__/setup/', '/prisma/'],
+  testPathIgnorePatterns: [
+    '/node_modules/',
+    '/__tests__/setup/',
+    '/prisma/',
+    'dist',
+  ],
 
   // An array of file extensions your modules use
   // moduleFileExtensions: [

@@ -1,8 +1,8 @@
 import { SITE } from './shared';
 
 export const privateDomainName = process.env.PRIVATE_API_DOMAIN_NAME;
+export const privateToken = process.env.PRIVATE_TOKEN;
 export const appPort = 3000;
-
 
 export const SITES: {
   [key in SITE]: { id: SITE; name: string; urls: string[] };

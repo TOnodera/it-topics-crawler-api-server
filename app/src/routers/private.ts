@@ -1,8 +1,9 @@
-import { privateDomainName } from '@/config';
+import { privateDomainName, privateToken } from '@/config';
 import { ArticleStore } from '@/store/ArticleStore';
 import { BatchHistoryStore, BatchResult } from '@/store/BatchHistoryStore';
 import { CrawlerStatsStore } from '@/store/CrawlerStatsStore';
 import { getPrismaClient } from '@/store/prismaClient';
+import { parseBearerToken } from '@/utils';
 import { Article } from '@prisma/client';
 import { PrismaClient } from '@prisma/client/extension';
 import { NextFunction, Request, Response, Router } from 'express';
@@ -11,12 +12,15 @@ import { StatusCodes } from 'http-status-codes';
 const client = getPrismaClient();
 export const privateRouter = Router();
 
-privateRouter.use((req, res, next) => {
-  if (req.hostname != privateDomainName) {
-    res.status(StatusCodes.FORBIDDEN).json({});
+privateRouter.use((req: Request, res, next) => {
+  if (
+    req.hostname == privateDomainName &&
+    parseBearerToken(req.headers.authorization) == privateToken
+  ) {
+    next();
     return;
   }
-  next();
+  res.sendStatus(StatusCodes.FORBIDDEN);
 });
 
 privateRouter.post(
