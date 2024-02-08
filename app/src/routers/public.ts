@@ -1,4 +1,4 @@
-import { ArticleStore } from '@/store/ArticleStore';
+import { Article, ArticleStore } from '@/store/ArticleStore';
 import { getPrismaClient } from '@/store/prismaClient';
 import { NextFunction, Request, Response, Router } from 'express';
 import { StatusCodes } from 'http-status-codes';
@@ -12,13 +12,23 @@ publicRouter.get('/helthy', (_: Request, res: Response) => {
 
 publicRouter.get(
   '/topics',
-  async (_: Request, res: Response, next: NextFunction) => {
+  async (
+    { query }: Request<any, any, any, { skip: number; take: number }>,
+    res: Response<Article[]>,
+    next: NextFunction
+  ) => {
     try {
+      const { skip, take } = query;
       const articleStore = new ArticleStore(client);
-      const articles = await articleStore.getArticles();
-      return res.json(articles);
+      const articles = await articleStore.getArticles({
+        skip: Number(skip),
+        take: Number(take),
+        orderBy: { createdAt: 'desc' },
+      });
+      console.log(skip, take);
+      res.json(articles);
     } catch (e) {
-      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({});
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json([]);
       next(e);
     }
   }

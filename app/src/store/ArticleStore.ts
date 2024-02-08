@@ -1,16 +1,6 @@
 import { SITE } from '@/shared';
 import { PrismaClient } from '@prisma/client';
 
-export interface Where {
-  id?: number;
-  title?: string;
-  content?: string;
-  contentHash?: string;
-  published?: boolean;
-  siteId?: number;
-  batchHistoryId: number;
-}
-
 export interface NewArticle {
   title: string;
   siteId: number;
@@ -67,8 +57,8 @@ export class ArticleStore {
     return await this.client.article.findUnique({ where: { id } });
   };
 
-  getArticles = async (where?: Where): Promise<Article[]> => {
-    return await this.client.article.findMany({ where });
+  getArticles = async (where?: any): Promise<Article[]> => {
+    return await this.client.article.findMany(where);
   };
 
   getArticleByContentId = async (
