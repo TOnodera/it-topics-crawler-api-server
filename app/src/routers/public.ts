@@ -12,24 +12,23 @@ publicRouter.get('/helthy', (_: Request, res: Response) => {
 
 publicRouter.get(
   '/topics',
-  async (
+  (
     { query }: Request<any, any, any, { skip: number; take: number }>,
     res: Response<Article[]>,
     next: NextFunction
   ) => {
-    try {
-      const { skip, take } = query;
-      const articleStore = new ArticleStore(client);
-      const articles = await articleStore.getArticles({
+    const { skip, take } = query;
+    const articleStore = new ArticleStore(client);
+    articleStore
+      .getArticles({
         skip: Number(skip),
         take: Number(take),
         orderBy: { createdAt: 'desc' },
+      })
+      .then((articles) => res.json(articles))
+      .catch((e) => {
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json([]);
+        next(e);
       });
-      console.log(skip, take);
-      res.json(articles);
-    } catch (e) {
-      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json([]);
-      next(e);
-    }
   }
 );
