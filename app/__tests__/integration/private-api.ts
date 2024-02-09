@@ -63,7 +63,7 @@ describe('private apiのテスト', () => {
       .post('/api-private/regist')
       .send({ data: fixtures })
       .set('host', process.env.PRIVATE_API_DOMAIN_NAME as string)
-      .set('Authorization', `bearer ${privateToken}`);
+      .set('Authorization', `Bearer ${privateToken}`);
     expect(responce.status).toBe(StatusCodes.CREATED);
   });
   test('crawler-stats-writer / hostnameがパブリックなドメイン名の場合はステータスコードFORBIDDEN', async () => {
@@ -112,7 +112,7 @@ describe('private apiのテスト', () => {
     const responce = await request(app)
       .post('/api-private/regist')
       .send({ data: fixtures })
-      .set('Authorization', `bearer ${privateToken}`)
+      .set('Authorization', `Bearer ${privateToken}`)
       .set('host', 'public.api-service');
     expect(responce.status).toBe(StatusCodes.FORBIDDEN);
   });
@@ -142,7 +142,7 @@ describe('private apiのテスト', () => {
     const responce = await request(app)
       .post('/api-private/regist')
       .send({ data: fixtures })
-      .set('Authorization', `bearer ${privateToken}`)
+      .set('Authorization', `Bearer ${privateToken}`)
       .set('host', process.env.PRIVATE_API_DOMAIN_NAME as string);
     expect(responce.status).toBe(StatusCodes.CREATED);
   });
