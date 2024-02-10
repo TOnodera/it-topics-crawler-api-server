@@ -1,4 +1,4 @@
-import { SITE } from '@/shared';
+import { Article, SITE } from '@/shared';
 import { PrismaClient } from '@prisma/client';
 
 export interface NewArticle {
@@ -11,21 +11,6 @@ export interface NewArticle {
   ogpTitle: string | null;
   ogpImage: string | null;
   ogpDescription: string | null;
-}
-
-export interface Article {
-  id: number;
-  title: string;
-  content: string;
-  contentHash: string;
-  published: boolean;
-  siteId: number;
-  ogpTitle: string | null;
-  ogpImage: string | null;
-  ogpDescription: string | null;
-  batchHistoryId: number;
-  createdAt: Date;
-  updatedAt: Date;
 }
 
 export class ArticleStore {

@@ -65,7 +65,7 @@ describe('articleStoreのテスト', () => {
     expect(article?.contentHash).toBe('hash');
   });
   test('記事データをcontentId,siteIdで取得できること', async () => {
-    const article = await store.getArticleByContentId(SITE.QIITA, 'ad9fa9234');
+    const article = await store.getArticleByContentId(SITE.SANSAN, 'ad9fa9234');
     expect(article?.id).toBe(1);
     expect(article?.title).toBe('test1');
     expect(article?.contentHash).toBe('hash');

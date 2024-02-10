@@ -1,4 +1,6 @@
-import { Article, ArticleStore } from '@/store/ArticleStore';
+import { Article } from '@/shared';
+import { ArticleStore } from '@/store/ArticleStore';
+import { BatchHistoryStore } from '@/store/BatchHistoryStore';
 import { getPrismaClient } from '@/store/prismaClient';
 import { NextFunction, Request, Response, Router } from 'express';
 import { StatusCodes } from 'http-status-codes';
@@ -30,5 +32,16 @@ publicRouter.get(
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json([]);
         next(e);
       });
+  }
+);
+
+publicRouter.get(
+  '/histories',
+  (req: Request, res: Response, next: NextFunction) => {
+    const store = new BatchHistoryStore(client);
+    store
+      .getAppHistories()
+      .then((data) => res.json(data))
+      .catch(next);
   }
 );
