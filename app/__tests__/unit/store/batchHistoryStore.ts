@@ -1,7 +1,7 @@
 import { test, describe, expect, beforeAll } from '@jest/globals';
-import { BatchHistory, PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 import { resetAndSeedDatabase } from '../../../testsetup/utility';
-import { BatchHistoryStore } from '@/store/BatchHistoryStore';
+import { BatchHistory, BatchHistoryStore } from '@/store/BatchHistoryStore';
 import { DateTime } from 'luxon';
 
 const client = new PrismaClient();
@@ -36,7 +36,7 @@ describe('BatchHistoryStoreのテスト', () => {
       await store.createBatchHistory(fixtures[idx]);
       const result = await store.getBatchHistory(Number(idx) + 1);
       if (fixtures[idx].startAt) {
-        expect(result?.startAt?.toDateString()).toBe(
+        expect(result?.startAt?.toString()).toBe(
           fixtures[idx].startAt?.toDateString()
         );
       }
