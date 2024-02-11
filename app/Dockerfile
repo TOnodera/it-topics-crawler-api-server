@@ -1,4 +1,4 @@
-FROM node:21.6.1-bullseye-slim
+FROM node:21-bookworm-slim
 
 RUN apt-get update \
   && apt-get upgrade -y \
@@ -12,10 +12,11 @@ RUN apt-get update \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
+
 # ロケール設定
 ENV LANG ja_JP.UTF-8 
 RUN sed -i -e 's/# \(ja_JP.UTF-8\)/\1/' /etc/locale.gen \
-    && locale-gen
+  && locale-gen
 
 # ユーザー設定 # dotenv-cliは開発時に利用する
 RUN npm i -g typescript dotenv-cli 
