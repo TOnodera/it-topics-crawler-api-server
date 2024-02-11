@@ -4,14 +4,9 @@ RUN apt-get update \
   && apt-get install -y --no-install-recommends \
   curl \
   wget \
-  gnupg \
-  ca-certificates \
   locales \
-  gcc \
-  build-essential \
   git \
   vim \
-  openssh-client \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
