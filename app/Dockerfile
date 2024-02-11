@@ -7,6 +7,7 @@ RUN apt-get update \
   locales \
   git \
   vim \
+  openssh-client \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
