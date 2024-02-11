@@ -10,8 +10,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: タグを取得
         run: echo "TAG_NAME=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-      - name: echo tag name
+      - name: タグ表示
         run: |
           echo "${TAG_NAME}"
           echo "${{ env.TAG_NAME }}"
