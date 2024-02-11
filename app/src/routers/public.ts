@@ -25,7 +25,7 @@ publicRouter.get(
       .getArticles({
         skip: Number(skip),
         take: Number(take),
-        orderBy: { createdAt: 'desc', id: 'desc' },
+        orderBy: { id: 'desc' },
       })
       .then((articles) => res.json(articles))
       .catch((e) => {
