@@ -15,30 +15,30 @@ jobs:
       - name: タグ表示
         run: |
           echo "${TAG_NAME}"
-          echo "${{ env.TAG_NAME }}"
 
-#       - name: イメージをビルド
-#         run: |-
-#           DOCKER_BUILDKIT=1 docker image build . -f Dockerfile --tag ${{ secrets.DH_USERNAME }}/portfolio-t-dera:${{ github.run_number }}
-#
-#       - name: イメージの脆弱性診断
-#         uses: aquasecurity/trivy-action@master
-#         with:
-#           image-ref: "${{ secrets.DH_USERNAME }}/ittopic-api:${{ github.run_number }}"
-#           format: "table"
-#           exit-code: "1"
-#           ignore-unfixed: true
-#           severity: "CRITICAL,HIGH"
-#
-#       - name: Docker Hubにログイン
-#         uses: docker/login-action@v3
-#         with:
-#           username: ${{ secrets.DH_USERNAME }}
-#           password: ${{ secrets.DH_TOKEN }}
-#
-#       - name: Docker Hubにイメージをプッシュ
-#         run: |-
-#           docker image push ${{ secrets.DH_USERNAME }}/portfolio-t-dera:${{ github.run_number }}
+      - name: イメージをビルド
+        run: |-
+          DOCKER_BUILDKIT=1 docker image build . -f Dockerfile --tag ${{ secrets.DH_USERNAME }}/ittopic-api:${{ env.TAG_NAME }}
+
+      - name: イメージの脆弱性診断
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: "${{ secrets.DH_USERNAME }}/ittopic-api:${{ env.TAG_NAME }}"
+          format: "table"
+          exit-code: "1"
+          ignore-unfixed: true
+          severity: "CRITICAL,HIGH"
+
+      - name: Docker Hubにログイン
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DH_USERNAME }}
+          password: ${{ secrets.DH_TOKEN }}
+
+      - name: Docker Hubにイメージをプッシュ
+        run: |-
+          docker image push ${{ secrets.DH_USERNAME }}/ittopic-api:${{ env.TAG_NAME }}
+
 #
 #       - name: config-for-portfolio.t-dera.tokyoにチェックアウト
 #         uses: actions/checkout@v3
@@ -51,17 +51,17 @@ jobs:
 #           # バージョン更新
 #           git config --global user.email "${{ secrets.EMAIL }}"
 #           git config --global user.name "${{ secrets.GH_USERNAME }}"
-#           git branch ci-robot/request-number-${{ github.run_number }}
-#           git checkout ci-robot/request-number-${{ github.run_number }}
-#           sed -i 's/tag: [0-9]*/tag: ${{ github.run_number }}/g' values.yaml
+#           git branch ci-robot/request-number-${{ TAG_NAME }}
+#           git checkout ci-robot/request-number-${{ TAG_NAME }}
+#           sed -i 's/tag: [0-9]*/tag: ${{ TAG_NAME }}/g' values.yaml
 #
 #           # git push
 #           git add values.yaml
-#           git commit -m "バージョンが更新されました: ${{ github.run_number }}"
-#           git push origin ci-robot/request-number-${{ github.run_number }}
+#           git commit -m "バージョンが更新されました: ${{ TAG_NAME }}"
+#           git push origin ci-robot/request-number-${{ TAG_NAME }}
 #
 #           # プルリクエストを作成
 #           echo ${{ secrets.PERSONAL_ACCESS_TOKEN }} > token.txt
 #           gh auth login --with-token < token.txt
-#           gh pr create --title 'Update Tag ${{ github.run_number }}' --body "マージしてください。マージが完了するとArgoCDがCD処理を開始します。"
+#           gh pr create --title 'Update Tag ${{ TAG_NAME }}' --body "マージしてください。マージが完了するとArgoCDがCD処理を開始します。"
 #
