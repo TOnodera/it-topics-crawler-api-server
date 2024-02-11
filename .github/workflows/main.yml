@@ -51,16 +51,16 @@ jobs:
           # バージョン更新
           git config --global user.email "${{ secrets.EMAIL }}"
           git config --global user.name "${{ secrets.GH_USERNAME }}"
-          git branch ci-robot/request-${{ TAG_NAME }}
-          git checkout ci-robot/request-${{ TAG_NAME }}
-          sed -i 's/api_image_tag: v*/tag: ${{ TAG_NAME }}/g' values.yaml
+          git branch ci-robot/request-${{ env.TAG_NAME }}
+          git checkout ci-robot/request-${{ env.TAG_NAME }}
+          sed -i 's/api_image_tag: v*/tag: ${{ env.TAG_NAME }}/g' values.yaml
 
           # git push
           git add values.yaml
-          git commit -m "バージョンが更新されました: ${{ TAG_NAME }}"
-          git push origin ci-robot/request-${{ TAG_NAME }}
+          git commit -m "バージョンが更新されました: ${{ env.TAG_NAME }}"
+          git push origin ci-robot/request-${{ env.TAG_NAME }}
 
           # プルリクエストを作成
           echo ${{ secrets.PERSONAL_ACCESS_TOKEN }} > token.txt
           gh auth login --with-token < token.txt
-          gh pr create --title 'Update Tag ${{ TAG_NAME }}' --body "マージしてください。マージが完了するとArgoCDがCD処理を開始します。"
+          gh pr create --title 'Update Tag ${{ env.TAG_NAME }}' --body "マージしてください。マージが完了するとArgoCDがCD処理を開始します。"
