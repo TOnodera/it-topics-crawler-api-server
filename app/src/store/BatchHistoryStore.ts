@@ -34,14 +34,24 @@ export class BatchHistoryStore {
   async getBatchHistory(id: number): Promise<RegisteredBatchHistory> {
     return await this.client.batchHistory.findUnique({ where: { id } });
   }
-  async getAppHistories(): Promise<AppHistories[]> {
+  async getAppHistories({
+    skip,
+    take,
+    orderBy,
+  }: {
+    skip?: number;
+    take?: number;
+    orderBy?: { createdAt: string };
+  }): Promise<AppHistories[]> {
     return await this.client.batchHistory.findMany({
       include: {
         CrawlerStats: {
           include: { Site: true },
         },
       },
-      orderBy: { createdAt: 'desc' },
+      orderBy,
+      skip,
+      take,
     });
   }
 }

@@ -37,10 +37,20 @@ publicRouter.get(
 
 publicRouter.get(
   '/histories',
-  (req: Request, res: Response, next: NextFunction) => {
+
+  (
+    { query }: Request<any, any, any, { skip: number; take: number }>,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const { skip, take } = query;
     const store = new BatchHistoryStore(client);
     store
-      .getAppHistories()
+      .getAppHistories({
+        skip: Number(skip),
+        take: Number(take),
+        orderBy: { createdAt: 'desc' },
+      })
       .then((data) => res.json(data))
       .catch(next);
   }
