@@ -40,29 +40,27 @@ jobs:
         run: |-
           docker image push ${{ secrets.DH_USERNAME }}/ittopic-api:${{ env.TAG_NAME }}
 
-#
-#       - name: config-for-portfolio.t-dera.tokyoにチェックアウト
-#         uses: actions/checkout@v3
-#         with:
-#           repository: TOnodera/config-for-portfolio.t-dera.tokyo
-#           ssh-key: ${{ secrets.GH_SECRET_KEY }}
-#
-#       - name: バージョンを更新してプルリクエストを作成
-#         run: |-
-#           # バージョン更新
-#           git config --global user.email "${{ secrets.EMAIL }}"
-#           git config --global user.name "${{ secrets.GH_USERNAME }}"
-#           git branch ci-robot/request-number-${{ TAG_NAME }}
-#           git checkout ci-robot/request-number-${{ TAG_NAME }}
-#           sed -i 's/tag: [0-9]*/tag: ${{ TAG_NAME }}/g' values.yaml
-#
-#           # git push
-#           git add values.yaml
-#           git commit -m "バージョンが更新されました: ${{ TAG_NAME }}"
-#           git push origin ci-robot/request-number-${{ TAG_NAME }}
-#
-#           # プルリクエストを作成
-#           echo ${{ secrets.PERSONAL_ACCESS_TOKEN }} > token.txt
-#           gh auth login --with-token < token.txt
-#           gh pr create --title 'Update Tag ${{ TAG_NAME }}' --body "マージしてください。マージが完了するとArgoCDがCD処理を開始します。"
-#
+      - name: conf-ittopic-crawlerにチェックアウト
+        uses: actions/checkout@v3
+        with:
+          repository: TOnodera/conf-ittopic-crawler
+          ssh-key: ${{ secrets.GH_SECRET_KEY }}
+
+      - name: バージョンを更新してプルリクエストを作成
+        run: |-
+          # バージョン更新
+          git config --global user.email "${{ secrets.EMAIL }}"
+          git config --global user.name "${{ secrets.GH_USERNAME }}"
+          git branch ci-robot/request-${{ TAG_NAME }}
+          git checkout ci-robot/request-${{ TAG_NAME }}
+          sed -i 's/api_image_tag: v*/tag: ${{ TAG_NAME }}/g' values.yaml
+
+          # git push
+          git add values.yaml
+          git commit -m "バージョンが更新されました: ${{ TAG_NAME }}"
+          git push origin ci-robot/request-${{ TAG_NAME }}
+
+          # プルリクエストを作成
+          echo ${{ secrets.PERSONAL_ACCESS_TOKEN }} > token.txt
+          gh auth login --with-token < token.txt
+          gh pr create --title 'Update Tag ${{ TAG_NAME }}' --body "マージしてください。マージが完了するとArgoCDがCD処理を開始します。"
