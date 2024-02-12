@@ -57,10 +57,10 @@ jobs:
 
           # git push
           git add values.yaml
-          git commit -m "バージョンが更新されました: ${{ env.TAG_NAME }}"
+          git commit -m "apiバージョンが更新されました: ${{ env.TAG_NAME }}"
           git push origin ci-robot/request-${{ env.TAG_NAME }}
 
           # プルリクエストを作成
           echo ${{ secrets.PERSONAL_ACCESS_TOKEN }} > token.txt
           gh auth login --with-token < token.txt
-          gh pr create --title 'Update Tag ${{ env.TAG_NAME }}' --body "マージしてください。マージが完了するとArgoCDがCD処理を開始します。"
+          gh pr create --title 'Update Tag ${{ env.TAG_NAME }}' --body "apiが更新されました。マージしてください。マージが完了するとArgoCDがCD処理を開始します。"
