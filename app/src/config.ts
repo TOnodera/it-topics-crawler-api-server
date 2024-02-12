@@ -3,6 +3,13 @@ import { SITE } from './shared';
 export const privateDomainName = process.env.PRIVATE_API_DOMAIN_NAME;
 export const privateToken = process.env.PRIVATE_TOKEN;
 export const appPort = 3000;
+export const corsOptions = {
+  origin: [
+    'https://cors.topics.t-dera.tokyo',
+    /http:\/\/(?:localhost|127\.0\.0\.1):\d+/,
+  ],
+  optionsSuccessStatus: 200,
+};
 
 export const SITES: {
   [key in SITE]: { id: SITE; name: string; name_ja: string; urls: string[] };
