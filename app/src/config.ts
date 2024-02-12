@@ -6,7 +6,7 @@ export const appPort = 3000;
 
 // cors設定 https://www.npmjs.com/package/cors
 const whiteList = {
-  url: ['https://cors.topics.t-dera.tokyo'],
+  url: ['https://topics-test.t-dera.tokyo'],
   regex: [/http:\/\/(?:localhost|127\.0\.0\.1):\d+/],
 };
 export const corsOptions = {
