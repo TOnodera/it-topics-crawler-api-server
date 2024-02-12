@@ -1,4 +1,4 @@
-import Express, { Response } from 'express';
+import Express from 'express';
 import helmet from 'helmet';
 import { privateRouter } from './routers/private';
 import { errorHandler } from './errorHandler';
@@ -18,6 +18,5 @@ app.use(bodyParser.json({ limit: '10mb' }));
 // ルータ設定
 app.use('/api-private', privateRouter);
 app.use('/', publicRouter);
-app.use('*', (_, res: Response) => res.redirect('/'));
 // エラーハンドラー
 app.use(errorHandler);

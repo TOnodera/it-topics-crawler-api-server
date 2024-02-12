@@ -14,11 +14,11 @@ export const corsOptions = {
     console.log(
       origin,
       whiteList.url.includes(origin),
-      whiteList.regex.map((re) => re.test(origin))
+      whiteList.regex.some((re) => re.test(origin))
     );
     if (
       whiteList.url.includes(origin) ||
-      whiteList.regex.map((re) => re.test(origin))
+      whiteList.regex.some((re) => re.test(origin))
     ) {
       callback(null, true);
     } else {
