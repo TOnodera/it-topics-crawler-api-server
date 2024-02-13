@@ -6,20 +6,28 @@ export const appPort = 3000;
 
 // cors設定 https://www.npmjs.com/package/cors
 const whiteList = {
-  url: ['https://topics.t-dera.tokyo', privateDomainName],
+  url: ['https://topics.t-dera.tokyo', `http://${privateDomainName}`],
   regex: [/http:\/\/(?:localhost|127\.0\.0\.1):\d+/],
 };
 export const corsOptions = {
   origin: (origin: any, callback: any) => {
-    console.log(origin);
+    // 非ブラウザリクエストの場合はorigin設定されないので無視
+    if (!origin) {
+      callback(null, true);
+      return;
+    }
+
+    // originがセットされてたらチェックする
     if (
       whiteList.url.includes(origin) ||
       whiteList.regex.some((re) => re.test(origin))
     ) {
       callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
+      return;
     }
+
+    // corsエラー
+    callback(new Error(`Not allowed by CORS: ${origin}`));
   },
 };
 
