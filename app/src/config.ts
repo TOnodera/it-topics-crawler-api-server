@@ -11,6 +11,7 @@ const whiteList = {
 };
 export const corsOptions = {
   origin: (origin: any, callback: any) => {
+    console.log(origin);
     if (
       whiteList.url.includes(origin) ||
       whiteList.regex.some((re) => re.test(origin))
