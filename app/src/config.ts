@@ -6,16 +6,11 @@ export const appPort = 3000;
 
 // cors設定 https://www.npmjs.com/package/cors
 const whiteList = {
-  url: ['https://topics.t-dera.tokyo'],
+  url: ['https://topics.t-dera.tokyo', privateDomainName],
   regex: [/http:\/\/(?:localhost|127\.0\.0\.1):\d+/],
 };
 export const corsOptions = {
   origin: (origin: any, callback: any) => {
-    console.log(
-      origin,
-      whiteList.url.includes(origin),
-      whiteList.regex.some((re) => re.test(origin))
-    );
     if (
       whiteList.url.includes(origin) ||
       whiteList.regex.some((re) => re.test(origin))
